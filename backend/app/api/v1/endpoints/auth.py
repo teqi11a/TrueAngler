@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.security import OAuth2PasswordRequestForm
-from app.core import auth
-from app.services import user_service
+from backend.app.core import auth
+from backend.app.services import user_service
 
 router = APIRouter()
 
@@ -12,5 +12,5 @@ async def login(form_data: OAuth2PasswordRequestForm = Depends()):
     if not user:
         raise HTTPException(status_code=400, detail="Incorrect email or password")
 
-    access_token = security.create_access_token(user.id)
+    access_token = auth.create_access_token(user.id)
     return {"access_token": access_token, "token_type": "bearer"}
