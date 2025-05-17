@@ -1,11 +1,22 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
-
+import {useNavigate} from "react-router-dom";
+const API_BASE_URL = 'http://localhost:8000';
 const AuthContext = createContext();
+
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
 
+useEffect(() => {
+  if (!isLoading && user) {
+    // Если пользователь авторизован и пытается попасть на /login - редирект
+    if (window.location.pathname === '/login') {
+      navigate('/dashboard');
+    }
+  }
+}, [user, isLoading, navigate]);
   // Проверяем токен при загрузке приложения
   useEffect(() => {
     const checkAuth = async () => {
@@ -13,7 +24,8 @@ export const AuthProvider = ({ children }) => {
       if (token) {
         try {
           // Запрос к серверу для проверки токена (когда будет API)
-          const response = await fetch('/api/auth/me', {
+          const response = await fetch(`${API_BASE_URL}/v1/auth/me`, {
+            method: 'GET',
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -31,14 +43,14 @@ export const AuthProvider = ({ children }) => {
     checkAuth();
   }, []);
 
-  const login = async (email, password) => {
+  const login = async (username, password) => {
     try {
-      const response = await fetch('/api/auth/login', {
+      const response = await fetch(`${API_BASE_URL}/v1/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ username, password }),
       });
       const data = await response.json();
       if (response.ok) {

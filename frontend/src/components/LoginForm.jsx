@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import './Styles/LoginForm.css';
 
 const LoginForm = () => {
-  const [email, setEmail] = useState('');
+  const [login_name, set_login_name] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -17,7 +17,7 @@ const LoginForm = () => {
     setIsSubmitting(true);
 
     try {
-      const isSuccess = await login(email, password);
+      const isSuccess = await login(login_name, password);
       if (isSuccess) {
         navigate('/dashboard');
       } else {
@@ -38,9 +38,9 @@ const LoginForm = () => {
         <form onSubmit={handleSubmit}>
           <div className="input-group">
             <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              type="login"
+              value={login_name}
+              onChange={(e) => set_login_name(e.target.value)}
               placeholder=" "
               className="form-input"
             />

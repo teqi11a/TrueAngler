@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './Styles/HomePage.css';
 
 const HomePage = () => {
-  const { user } = useAuth();
+  const { user, isLoading } = useAuth();
   const navigate = useNavigate();
 
   return (
@@ -17,16 +17,11 @@ const HomePage = () => {
           <p className="hero-subtitle">
             Ваш надежный инструмент для управления фишинговыми письмами как способом тренировки сотрудников
           </p>
-
-          {!user && (
-            <button
-              className="cta-button"
-              onClick={() => navigate('/login')}
-            >
-              Начать работу
-              <div className="button-overlay"></div>
-            </button>
-          )}
+          { !isLoading && (<button className="cta-button" onClick={() => navigate(user ? '/dashboard' : '/login')}>
+              {user ? 'Перейти в личный кабинет' : 'Начать работу'}
+            <div className="button-overlay"></div>
+          </button>
+            )}
         </div>
       </header>
 
