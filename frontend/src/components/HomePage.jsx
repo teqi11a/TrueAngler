@@ -11,8 +11,7 @@ const HomePage = () => {
       <header className="hero-section">
         <div className="hero-content">
           <h1 className="hero-title">
-            Добро пожаловать в
-            <span className="gradient-text"> TrueAngler</span>
+            Добро пожаловать в <span className="gradient-text">TrueAngler</span>
           </h1>
           <p className="hero-subtitle">
             Ваш надежный инструмент для управления фишинговыми письмами как способом тренировки сотрудников
@@ -42,6 +41,53 @@ const HomePage = () => {
           <div className="feature-icon analytics"></div>
           <h3>Аналитика</h3>
           <p>Подробная статистика и визуализация данных</p>
+        </div>
+      </section>
+
+      {/* Команда */}
+      <section className="team-section">
+        <div className="section-header">
+          <h2 className="section-title">Наша команда</h2>
+          <p>Создавая безопасность будущего</p>
+        </div>
+
+        <div className="team-grid">
+          {/* Участники команды */}
+          {[
+            {
+              role: "DevOps Architect",
+              name: "teqi11a",
+              bio: "Превратил инфраструктуру в самообучающуюся систему безопасности. Автор концепции \"Security-as-Code\".",
+              quote: "Надежность системы определяется weakest link - моя задача исключить само понятие слабого звена",
+              tech: ["Kubernetes", "GitOps", "AWS Security"],
+            },
+            {
+              role: "Security Analyst",
+              name: "SiberiaSec",
+              bio: "Специалист по киберпсихологии и адаптивным фишинговым сценариям.",
+              quote: "Человек - не слабое звено, а главный актив защиты",
+              tech: ["MITRE ATT&CK", "ML Security", "Threat Modeling"],
+            },
+            {
+              role: "Security Automation",
+              name: "Gribn33k",
+              bio: "Эксперт по Red Team автоматизации и симуляции APT-атак.",
+              quote: "Лучшая защита - это реалистичная тренировка",
+              tech: ["Python Automation", "Honeytokens", "CTI"],
+            },
+          ].map((member, index) => (
+            <article className="member-card" key={index}>
+              <span className="member-role">{member.role}</span>
+              <h3 className="member-name">{member.name}</h3>
+              <p className="member-bio">{member.bio}</p>
+              <blockquote className="philosophy">"{member.quote}"</blockquote>
+              <ul className="tech-list">
+                {member.tech.map((t, i) => (
+                  <li className="tech-item" key={i}>{t}</li>
+                ))}
+              </ul>
+            </article>
+          ))}
         </div>
       </section>
     </div>
