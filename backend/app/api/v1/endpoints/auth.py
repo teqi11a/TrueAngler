@@ -12,8 +12,13 @@ class LoginRequest(BaseModel):
     username: str
     password: str
 
-@router.post("/login")
+@router.post("/login", summary="Аутентификация пользователя")
 async def login(credentials: LoginRequest):
+    """
+    Функция авторизации пользователя и создания токена \n
+    :param: credentials: {username: str, password: str}\n
+    :return: dict: {'access_token': str, 'token_type': str, user: str}
+    """
     user = await user_service.authenticate_user(credentials.username, credentials.password)
     if not user:
         raise HTTPException(status_code=400, detail="Incorrect email or password")
@@ -25,8 +30,13 @@ async def login(credentials: LoginRequest):
         "user": user
     }
 
-@router.get("/me")
+@router.get("/me", summary="Получение текущего авторизованного пользователя")
 async def read_users_me(token: str = Depends(oauth2_scheme)):
+    """
+    Получения текущего пользователя по токену авторизации\n
+    :param token: str\n
+    :return: dict: {username: str, role: str}
+    """
     try:
         payload = auth.decode_token(token)
         return {

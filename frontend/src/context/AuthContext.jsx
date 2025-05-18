@@ -23,7 +23,6 @@ useEffect(() => {
       const token = localStorage.getItem('token');
       if (token) {
         try {
-          // Запрос к серверу для проверки токена (когда будет API)
           const response = await fetch(`${API_BASE_URL}/v1/auth/me`, {
             method: 'GET',
             headers: {
