@@ -1,16 +1,12 @@
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
-from backend.app.core import auth
+from backend.app.core import security
+from backend.app.models.auth import LoginRequest
 from backend.app.services import user_service
-from pydantic import BaseModel
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/v1/auth/login")
 
 router = APIRouter()
-
-class LoginRequest(BaseModel):
-    username: str
-    password: str
 
 @router.post("/login", summary="Аутентификация пользователя")
 async def login(credentials: LoginRequest):
@@ -23,7 +19,7 @@ async def login(credentials: LoginRequest):
     if not user:
         raise HTTPException(status_code=400, detail="Incorrect email or password")
 
-    access_token = auth.create_access_token(user)
+    access_token = security.create_access_token(user)
     return {
         "token": access_token,
         "token_type": "bearer",
@@ -38,7 +34,7 @@ async def read_users_me(token: str = Depends(oauth2_scheme)):
     :return: dict: {username: str, role: str}
     """
     try:
-        payload = auth.decode_token(token)
+        payload = security.decode_token(token)
         return {
             "username": payload.get("login"),
             "role": payload.get("role"),

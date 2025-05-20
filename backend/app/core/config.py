@@ -16,6 +16,7 @@ class Settings(BaseModel):
     PROJECT_NAME: str = "Angler"
     VERSION: str = "0.0.1"
     API_PREFIX: str = "/v1"
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 8
     SECRET_KEY: str = os.getenv("SECRET_KEY")
 
     class Config:
