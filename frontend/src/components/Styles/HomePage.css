@@ -229,6 +229,7 @@ body {
   font-size: 0.9rem;
 }
 
+
 @media (max-width: 768px) {
   .section-title {
     font-size: 2rem;
@@ -251,4 +252,6 @@ body {
   .features-section {
     margin-top: -40px;
   }
+
+
 }

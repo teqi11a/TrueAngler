@@ -1,6 +1,8 @@
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import './Styles/HomePage.css';
+import Footer from '../components/Footer';
+
 
 const HomePage = () => {
   const { user, isLoading } = useAuth();
@@ -90,6 +92,7 @@ const HomePage = () => {
           ))}
         </div>
       </section>
+      <Footer />
     </div>
   );
 };
