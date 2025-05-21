@@ -4,6 +4,7 @@ import LoginForm from './components/LoginForm.jsx';
 import HomePage from "./components/HomePage.jsx";
 import ProtectedRoute from "./routes/ProtectedRoute.jsx";
 import DashboardPage from './components/Dashboard.jsx';
+import RegistrationForm from './components/RegistrationForm.jsx'
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
           {/* Публичные маршруты */}
           <Route path="/login" element={<LoginForm />} />
           <Route path="/" element={<HomePage />} />
-
+          <Route path="/register" element={<RegistrationForm />} />
           {/* Защищенные маршруты */}
           <Route
             path="/dashboard"
